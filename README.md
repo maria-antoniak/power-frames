@@ -5,12 +5,12 @@ This project contains functions and example usage of a lexicon of power and agen
 Download the lexicon and learn more about the original project here:   
 [https://maartensap.com/connotation-frames/](https://maartensap.com/connotation-frames/)
 
+Paper presenting the lexicon:  
 ["Connotation Frames of Power and Agency in Modern Films"](https://aclanthology.org/D17-1247/)  
 EMNLP (2017)  
 [Maarten Sap](https://maartensap.com/), Marcella Cindy Prasetio, Ari Holtzman, Hannah Rashkin & Yejin Choi  
 
-Cite the paper:
-
+Cite the paper:  
 ```
 @inproceedings{sap2017connotation,  
    title={Connotation Frames of Power and Agency in Modern Films},  
