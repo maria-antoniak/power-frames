@@ -1,6 +1,6 @@
 # power-frames
 
-This project contains functions and example usage of a lexicon of power and agency frames.
+This respository contains functions and example usage of a lexicon of power and agency frames.
 
 Download the lexicon and learn more about the original project here:   
 [https://maartensap.com/connotation-frames/](https://maartensap.com/connotation-frames/)
