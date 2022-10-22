@@ -3,12 +3,45 @@ from datetime import datetime
 import pickle
 import re
 
+import pandas as pd
+
 import spacy
-nlp = spacy.load('en_core_web_sm')  
+NLP = spacy.load('en_core_web_sm')  
+LEMMATIZER = NLP.get_pipe("lemmatizer")
 
 
-def load_power_dictionary(lemma_power_dict_path):
-    return pickle.load(open(lemma_power_dict_path, 'rb'))
+def get_lemma_spacy(verb):
+    verb = verb.split()[0]
+    _lemmas = LEMMATIZER.lemmatize(NLP(verb)[0])
+    return _lemmas[0]
+
+
+def get_verb_agency_dict(agency_path):
+
+    verb_agency_dict = {}
+
+    agency_df = pd.read_csv(agency_path)
+
+    for _index, _row in agency_df.iterrows():
+        _verb = _row['verb']
+        _lemma = get_lemma_spacy(_verb)
+        verb_agency_dict[_lemma] = _row['agency']
+
+    return verb_agency_dict
+
+
+def get_verb_power_dict(agency_path):
+
+    verb_power_dict = {}
+
+    agency_df = pd.read_csv(agency_path)
+
+    for _index, _row in agency_df.iterrows():
+        _verb = _row['verb']
+        _lemma = get_lemma_spacy(_verb)
+        verb_power_dict[_lemma] = _row['power']
+
+    return verb_power_dict
 
 
 def get_persona_matches_per_document(parsed_doc, persona_pattern_dict):
@@ -95,7 +128,7 @@ def measure_power(verb_power_dict, persona_pattern_dict, texts, text_ids):
             print(str(datetime.now())[:-7] + ' Processed ' + str(j) + ' out of ' + str(len(texts)))
         j += 1
 
-        _parse = nlp(_text)
+        _parse = NLP(_text)
         
         _nsubj_verb_count_dict, _dobj_verb_count_dict = get_persona_matches_per_document(_parse, persona_pattern_dict)
         _persona_power_dict = measure_power_per_document(_nsubj_verb_count_dict, _dobj_verb_count_dict, verb_power_dict)
